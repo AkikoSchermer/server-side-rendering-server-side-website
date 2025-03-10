@@ -1,1 +1,16 @@
-Succes!
+{% render 'partials/head.liquid' %}
+
+<h1>Hello world</h1>
+
+<ul>
+  {% for item in items %}
+    <li>
+      <strong>{{ item.name }}</strong> - {{ item.amount }}
+      <p>{{ item.description }}</p>
+      <img src="{{ item.image }}" alt="{{ item.name }}" width="100">
+      <a href="{{ item.url }}" target="_blank">Bekijk product</a>
+    </li>
+  {% endfor %}
+</ul>
+
+{% render 'partials/footer.liquid' %}

@@ -1,0 +1,23 @@
+{% render 'partials/head.liquid' %}
+
+    <h1>Alle Producten</h1>
+
+    {% if product.image %}
+        <h2>{{ product.name }}</h2>
+        <img src="{{ product.image }}" alt="{{ product.title }}">
+      {% else %}
+        <p>Geen afbeelding beschikbaar</p>
+      {% endif %}
+      
+    <ul>
+        {% for product in products %}
+            <li>
+                <a href="/detail/{{ product.id }}">{{ product.name }}
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Prijs: €{{ product.price }}</p></a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% render 'partials/footer.liquid' %}
