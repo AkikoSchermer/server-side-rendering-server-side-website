@@ -54,7 +54,7 @@ app.get('/detail/:id', async function (request, response) {
       const productDetailResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products/' + request.params.id);
       const productDetailResponseJSON = await productDetailResponse.json();
 
-      console.log("Opgehaalde data:", productDetailResponseJSON); // ✅ Dit logt de data
+      console.log("Opgehaalde data:", productDetailResponseJSON); 
 
       if (!productDetailResponseJSON.data) {
           return response.status(404).send("Product niet gevonden.");
@@ -68,19 +68,6 @@ app.get('/detail/:id', async function (request, response) {
 
 });
 
-// app.get('/detail/:id', async function (request, response) {
-//   // Gebruik de request parameter id en haal de juiste persoon uit de WHOIS API op
-//   const productDetailResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products/' + request.params.id)
-//   // En haal daarvan de JSON op
-//   const productDetailResponseJSON = await productDetailResponse.json()
-
-  
-  
-//   // Render student.liquid uit de views map en geef de opgehaalde data mee als variable, genaamd person
-//   // Geef ook de eerder opgehaalde squad data mee aan de view
-//   response.render('detail.liquid', { product: productDetailResponseJSON.data,})
-// })
-
 // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
 // Hier doen we nu nog niets mee, maar je kunt er mee spelen als je wilt
 app.post('/', async function (request, response) {
@@ -91,7 +78,7 @@ app.post('/', async function (request, response) {
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
 // Lokaal is dit poort 8000, als dit ergens gehost wordt, is het waarschijnlijk poort 80
-app.set('port', process.env.PORT || 8003)
+app.set('port', process.env.PORT || 8008)
 
 // Start Express op, haal daarbij het zojuist ingestelde poortnummer op
 app.listen(app.get('port'), function () {

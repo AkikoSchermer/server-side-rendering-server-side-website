@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+form {
+  margin: 5px;
+  padding: 10px;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+svg.mic-btn {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+textarea {
+  width: 100%;
+  max-width: 130px;
+  border-radius: 15px;
+}
+
+button .sub-btn {
+ width: 34px;
+ height: 26px;
+}
+
+button.sub {
+  border: none;
+  fill: none;
+}
