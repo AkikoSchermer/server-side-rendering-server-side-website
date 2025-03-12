@@ -15,9 +15,7 @@
 ## Beschrijving
 
 Ik heb een mobiele versie gemaakt van de website van Milledoni 
-<img src="https://github.com/user-attachments/assets/4d9de4f5-585c-443d-bb81-9c2e4accdb21">
-
-
+<img src="https://github.com/user-attachments/assets/8e356923-d526-4208-9b7f-edb672b37ca9">
 
 
 <!-- In de Beschrijving staat kort beschreven wat voor project het is en wat je hebt gemaakt -->
