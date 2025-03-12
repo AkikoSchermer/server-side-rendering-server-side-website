@@ -6,8 +6,40 @@
 
 body {
   display: flex;
+  font-family: "Parkinsans", sans-serif;
   flex-direction: column;
- 
+  background-color: #F6F5F5;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  padding: 10px 20px;
+}
+
+.logo {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.icons {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.icon {
+  height: 55px;
+  cursor: pointer;
 }
 
 .input-container {
