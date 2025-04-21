@@ -1,12 +1,6 @@
 {% render 'partials/head.liquid' %}
 
-
-
 <h1>I'm looking for a gift for...</h1>
-
-
-{% comment %} {% assign item_amount = 4.99 %}
-{{ item_amount | default: 2.99 }} {% endcomment %}
 
 <ul class="container">
   {% for product in products %}
@@ -29,41 +23,17 @@
 
       </div>
       <div class="info">
-        <h3>{{ product.name }}</h3>
+        <h2>{{ product.name }}</h2>
        <div class="circles">
-          <div class="circle">1</div>
-          <div class="circle">2</div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <p class="saved-label">+3 Saved</p>
         </div> 
         <a href="/detail/{{ product.id }}" class="btn"></a>
       </div>
     </li>
   {% endfor %}
 </ul>
-
-
-{% comment %} <ul class="container">
-  {% for product in products %}
-    <li class="card {% if forloop.index > 4 %}hidden{% endif %}">
-      <div class="image-container">
-        <a href="/detail/{{ product.id }}">
-          <img src="{{ product.image }}" alt="{{ product.name }}">
-        </a>
-        <img src="Bookmarkplus.svg" alt="Bookmark" class="bookmark">
-      </div>
-      <div class="info">
-        <h3>{{ product.name }}</h3>
-        <a href="/detail/{{ product.id }}" class="btn"></a>
-      </div>
-    </li>
-
-  {% endfor %}
-</ul> 
-
-
-<form method="POST" action="/{{ data.id }}">
-<button type="SUBMIT" name="productId" value="{{ product.id }}">-</button> {% endcomment %}
-
-
 
 <form action="/" method="POST">
    <div class="input-container">

@@ -43,29 +43,6 @@ app.get('/', async function (request, response) {
   }
 });
 
-
-// // Maak een GET route voor de index (meestal doe je dit in de root, als /)
-// app.get('/', async function (request, response) {
-//   try {
-//     // Doe een fetch naar de data die je nodig hebt
-//     const apiResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products');
-
-//     // Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
-//     const data = await apiResponse.json();
-
-//     // Controleer eventueel de data in je console (Let op: dit is _niet_ de console van je browser, maar van NodeJS, in je terminal)
-//     // console.log("Opgehaalde data:", data.data);
-
-//     // Render index.liquid uit de Views map en geef hier de data aan mee
-//     response.render('index.liquid', { items: data.data });
-
-//   } catch (error) {
-//     // Foutafhandeling
-//     console.error('Fout bij ophalen van data:', error);
-//     response.status(500).send('Er ging iets mis met het ophalen van de data.');
-//   }
-// })
-
 app.post('/like/:id', async function (request, response) {
   const getId = request.params.id
   
