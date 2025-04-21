@@ -8,6 +8,10 @@ import { Liquid } from 'liquidjs';
 // Maak een nieuwe Express applicatie aan, waarin we de server configureren
 const app = express()
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 // Gebruik de map 'public' voor statische bestanden (resources zoals CSS, JavaScript, afbeeldingen en fonts)
 // Bestanden in deze map kunnen dus door de browser gebruikt worden
 app.use(express.static('public'))
@@ -22,8 +26,15 @@ app.set('views', './views')
 
 app.get('/', async function (request, response) {
   try {
-    const apiResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products');
+    const apiResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products/');
     const data = await apiResponse.json();
+    const products = data.data;
+
+    const likesResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_users_milledoni_products?filter[milledoni_users_id][_eq]=3');
+    const likesData = await likesResponse.json();
+
+    const likedProductIds = likesData.data.map(item => item.milledoni_products_id);
+
 
     response.render('index.liquid', { products: data.data }); // ✅ 'products' gebruiken i.p.v. 'items'
   } catch (error) {
@@ -31,6 +42,7 @@ app.get('/', async function (request, response) {
     response.status(500).send('Er ging iets mis met het ophalen van de data.');
   }
 });
+
 
 // // Maak een GET route voor de index (meestal doe je dit in de root, als /)
 // app.get('/', async function (request, response) {
@@ -53,6 +65,28 @@ app.get('/', async function (request, response) {
 //     response.status(500).send('Er ging iets mis met het ophalen van de data.');
 //   }
 // })
+
+app.post('/like/:id', async function (request, response) {
+  const getId = request.params.id
+  
+  console.log(request.params.id)
+ 
+  await fetch('https://fdnd-agency.directus.app/items/milledoni_users_milledoni_products', {
+    method: 'POST',
+    body: JSON.stringify({
+        milledoni_products_id: getId,
+        milledoni_users_id: 3
+    }),
+    headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+    }
+});
+ 
+
+  // Redirect naar de homepage
+  response.redirect(303, '/');
+});
+
 
 app.get('/detail', async function (request, response) {
   const productsResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products');
@@ -88,6 +122,20 @@ app.post('/', async function (request, response) {
   response.redirect(303, '/')
 })
 
+
+// Maak een get route aan voor 404
+
+app.get('/', (req, res) => {
+  res.send('/');
+});
+
+app.use((req, res) => {
+  res.status(404).send('404 - Pagina niet gevonden');
+});
+
+
+// Gebruik app use res req next res status 400 ( kan ook een ander nummer zijn)
+// render terug naar home 
 // Stel het poortnummer in waar Express op moet gaan luisteren
 // Lokaal is dit poort 8000, als dit ergens gehost wordt, is het waarschijnlijk poort 80
 app.set('port', process.env.PORT || 8008)

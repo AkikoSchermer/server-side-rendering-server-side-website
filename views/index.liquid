@@ -4,55 +4,44 @@
 
 <h1>I'm looking for a gift for...</h1>
 
-{% comment %} <ul>
-  {% for item in items %}
-    <li>
-      <strong>{{ item.name }}</strong> - {{ item.amount }}
-      <p>{{ item.description }}</p>
-      <img src="{{ item.image }}" alt="{{ item.name }}" width="100">
-      <a href="{{ item.url }}" target="_blank">Bekijk product</a>
-    </li>
-  {% endfor %}
-</ul> {% endcomment %}
-
-{% comment %} <ul class="container">
-  {% for item in items %}
-    <li class="card">
-      <div class="image-container">
-        <img src="{{ item.image }}" alt="{{ item.name }}">    
-        <img src="Bookmark.svg" alt="Bookmark" class="bookmark">
-        </div>
-        <div class="info">
-          <h3>{{ item.name }}</h3>
-          <p>{{ item.description }}</p>
-          <p><strong>Prijs:</strong> {{ item.amount }}</p>
-          <a href="{{ item.url }}" target="_blank" class="btn">Bekijk product</a>
-        </div>
-      </li>
-    {% endfor %}
-  </ul> {% endcomment %}
-
-{% comment %} <ul class="container">
-  {% for item in items %}
-    <li class="card {% if forloop.index > 4 %}hidden{% endif %}">
-      <div class="image-container">
-        <img src="{{ item.image }}" alt="{{ item.name }}">
-        <img src="Bookmarkplus.svg" alt="Bookmark" class="bookmark">
-      </div>
-      <div class="info">
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.description }}</p>
-        <p><strong>Prijs:</strong> {{ item.amount }}</p>
-      </div>
-    </li>
-  {% endfor %}
-</ul>  {% endcomment %}
 
 {% comment %} {% assign item_amount = 4.99 %}
 {{ item_amount | default: 2.99 }} {% endcomment %}
 
-
 <ul class="container">
+  {% for product in products %}
+    <li class="card {% if forloop.index > 4 %}hidden{% endif %}">
+      <div class="image-container">
+        <a href="/detail/{{ product.id }}">
+          <img src="{{ product.image }}" alt="{{ product.name }}">
+        </a>
+     
+        <form method="POST" action="/like/{{ product.id }}" class="bookmark-form">
+        <button type="submit" name="productId" value="{{ product.id }}" class="bookmark-btn">
+          <img 
+            src="{% if product.liked %}BookmarkFilled.svg{% else %}Bookmarkplus.svg{% endif %}" 
+            class="bookmark" 
+            alt="Bookmark">
+        </button>
+      </form>
+
+
+
+      </div>
+      <div class="info">
+        <h3>{{ product.name }}</h3>
+       <div class="circles">
+          <div class="circle">1</div>
+          <div class="circle">2</div>
+        </div> 
+        <a href="/detail/{{ product.id }}" class="btn"></a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+
+
+{% comment %} <ul class="container">
   {% for product in products %}
     <li class="card {% if forloop.index > 4 %}hidden{% endif %}">
       <div class="image-container">
@@ -63,13 +52,16 @@
       </div>
       <div class="info">
         <h3>{{ product.name }}</h3>
-        {% comment %} <p>{{ product.description }}</p> {% endcomment %}
-        {% comment %} <p><strong>Prijs:</strong> €{{ product.price }}</p> {% endcomment %}
         <a href="/detail/{{ product.id }}" class="btn"></a>
       </div>
     </li>
+
   {% endfor %}
 </ul> 
+
+
+<form method="POST" action="/{{ data.id }}">
+<button type="SUBMIT" name="productId" value="{{ product.id }}">-</button> {% endcomment %}
 
 
 
@@ -90,6 +82,29 @@
     </button>
    </div>
 </form>
+
+<script>
+document.querySelectorAll('.bookmark-form').forEach(form => {
+  form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Voorkomt herladen van de pagina
+
+    let button = this.querySelector('.bookmark-btn img');
+    let isLiked = button.getAttribute('src') === 'BookmarkFilled.svg';
+
+    button.setAttribute('src', isLiked ? 'Bookmarkplus.svg' : 'BookmarkFilled.svg');
+
+    // Stuur de POST request via Fetch API
+    fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this)
+    }).then(response => {
+      if (!response.ok) {
+        console.error('Error bij het liken');
+      }
+    });
+  });
+});
+</script>
 
 
 
